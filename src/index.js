@@ -1,9 +1,8 @@
-const Gif = require('./createGif.js')
+const Gif = require('./Gif.js')
 const Koa = require('koa');
 const koaBody = require('koa-body');
 const sendfile = require('koa-sendfile')
 const fs = require('fs')
-
 
 const app = new Koa();
 app.use(koaBody());
