@@ -2,50 +2,45 @@ const ffmpegInstaller = require('@ffmpeg-installer/ffmpeg');
 const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs')
 const path = require('path')
-
+const md5 = require('md5')
+const { createFolder, countSubstring } = require('./util.js')
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
-var createFolder = function(to) { //文件写入
-  var sep = path.sep
-  var folders = path.dirname(to).split(sep);
-  var p = '';
-  while (folders.length) {
-    p += folders.shift() + sep;
-    if (!fs.existsSync(p)) {
-      fs.mkdirSync(p);
-    }
-  }
-};
-
 class Gif {
-  constructor(templateName = '', subtitles = []) {
-    const subtitlesPath = this.createSubtitle(templateName, subtitles)
-    this.fileName = this.createGif(templateName, subtitlesPath);
+  constructor(templateName = '', subtitle = []) {
+    this.hash = md5(`${templateName}:${subtitle}`)
+    const subtitleHashPath = this.createSubtitle(templateName, subtitle)
+    this.createGif(templateName, subtitleHashPath);
   }
 
-  createSubtitle(templateName, subtitles) {
-    let assText = fs.readFileSync(`../template/${templateName}/template.ass`, 'utf8');
-    for (let i = 0; i < subtitles.length; i++) {
-      assText = assText.replace(`<%= sentences[${i}] %>`, String(subtitles[i]))
+  createSubtitle(templateName, subtitle) {
+    const { hash } = this
+    const subtitleHashPath = `../output/${templateName}/${hash}.ass`
+    if (!fs.existsSync(hash)) {
+      const subtitleTemplatePath = `../template/${templateName}/template.ass`
+      let subtitleText = fs.readFileSync(subtitleTemplatePath, 'utf8');
+      const dialogueLength = countSubstring(subtitleText, 'Dialogue')
+      for (let i = 0; i < dialogueLength; i++) {
+        subtitleText = subtitleText.replace(`<%= sentences[${i}] %>`, subtitle[i] || '')
+      }
+      createFolder(subtitleHashPath);
+      fs.writeFileSync(subtitleHashPath, subtitleText)
     }
-    const subtitlesPath = `../cache/${templateName}/subtitles.ass`
-    createFolder(subtitlesPath);
-    fs.writeFileSync(subtitlesPath, assText)
-    return subtitlesPath
+    return subtitleHashPath
   }
 
-  createGif(templateName, subtitlesPath) {
+  createGif(templateName, subtitleHashPath) {
+    const { hash } = this
+    const gifPath = `../output/${templateName}/${hash}.gif`
+    createFolder(gifPath);
 
     ffmpeg(`../template/${templateName}/template.mp4`)
       .videoFilters({
         filter: 'subtitles',
-        options: subtitlesPath
+        options: subtitleHashPath
       }, )
-      .save(`../output/${templateName}/${templateName}.gif`)
+      .save(gifPath)
   }
 }
 
-new Gif('sorry', [1, 2, 3, 4, 5, 6, 7, 8, 9])
 module.exports = Gif
-
-const customDialogue = ['1', '2', '3', '4', '5']
