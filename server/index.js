@@ -91,7 +91,6 @@ const getGif = (ctx) => {
     ctx.throw({ message: `id:${id} not exist`, status: 404 });
   } else {
     ctx.type = 'gif';
-    // ctx.set('Content-Type', 'image/gif')
     ctx.body = fs.createReadStream(gifPath)
   }
 

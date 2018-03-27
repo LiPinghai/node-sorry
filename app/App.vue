@@ -1,55 +1,70 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <group>
-      <cell title="title" value="value"></cell>
-    </group>
+    <x-header :left-options="header.lefeOption">sorry gif</x-header>
+    <router-view class="main"></router-view>
+    <tabbar>
+      <tabbar-item link="./">
+        <img slot="icon" src="./assets/icon-home.png">
+        <span slot="label">首页</span>
+      </tabbar-item>
+      <tabbar-item link="./discover">
+        <img slot="icon" src="./assets/icon-discover.png">
+        <span slot="label">发现</span>
+      </tabbar-item>
+    </tabbar>
   </div>
 </template>
 
 <script>
 import 'vux/src/styles/reset.less';
-import { Group, Cell } from 'vux'
+import { Tabbar, TabbarItem, XHeader } from 'vux'
 
 export default {
   name: 'app',
-    components: {
-    Group,
-    Cell
+  components: {
+    Tabbar,
+    TabbarItem,
+    XHeader
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      header: {
+        lefeOption: {showBack: false}
+      }
     }
+
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="less">
+html,body{
+  position: relative;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+p{
+  margin: 0
+  }
+
+a{
+  text-decoration-line: none;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  position: relative;
+  height: 100%;
+}
+.main{
+  position: relative;
+  height: calc(100% - 99px);
 }
 
-h1, h2 {
-  font-weight: normal;
-}
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>
