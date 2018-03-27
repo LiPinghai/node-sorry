@@ -3,12 +3,13 @@
 </style>
 <template>
   <div class="page-home">
-
+    <panel :list="templates" header="点击进入创作gif" type="1" ></panel>
   </div>
 </template>
 <script>
 
 import { Panel } from 'vux'
+import config from '../config.js'
 
 export default {
  name: 'home',
@@ -16,7 +17,14 @@ export default {
     Panel
   },
   data () {
-    return{}
+    return{
+      templates: config.templates
+    }
+  },
+  methods:{
+    enterGifPage(){
+      this.$router.push('/')
+    }
   }
 }
 </script>

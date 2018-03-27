@@ -9,21 +9,21 @@ const path = require('path')
 const app = new Koa();
 app.use(koaBody());
 // 捕捉错误
-const handleError = async(ctx, next)=> {
+const handleError = async(ctx, next) => {
   try {
     await next();
-  } catch(e) {
-    const status =  e.status || 404
-    const message =  e.message || 'unknown error'
+  } catch (e) {
+    const status = e.status || 404
+    const message = e.message || 'unknown error'
     const paths = ctx.request.path.split('/')
 
-    if (paths[1] === 'apis' ) {
+    if (paths[1] === 'apis') {
       ctx.response.status = status;
       ctx.response.body = {
         status: status,
         message: message
       };
-    }else{
+    } else {
       ctx.response.type = 'html'
       ctx.response.body = fs.readFileSync('./server/404.html');
     }
@@ -34,16 +34,17 @@ app.use(handleError);
 
 // 页面服务
 app.use(static('./dist'));
+app.use(static('./'));
 // api服务
 app.use(async ctx => {
   const { request, response, method } = ctx
   const { body } = request
   const paths = request.path.split('/')
 
-  if (paths[1] === 'apis' ) {
-    if( method === 'POST'){
+  if (paths[1] === 'apis') {
+    if (method === 'POST') {
       postGif(ctx)
-    }else if(method === 'GET'){
+    } else if (method === 'GET') {
       getGif(ctx)
     }
   } else {
