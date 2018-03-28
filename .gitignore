@@ -1,9 +1,5 @@
 node_modules
-<<<<<<< HEAD
 cache
-=======
-output
->>>>>>> 更换view
 cache
 npm-debug.log
 dist
