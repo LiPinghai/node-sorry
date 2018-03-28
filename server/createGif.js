@@ -9,8 +9,9 @@ const { createFolder, countSubstring } = require('../common/util.js')
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
 class Gif {
-  constructor(templateName = '', subtitle = []) {
-    this.hash = md5(`${templateName}:${subtitle}`)
+  constructor(templateName = '', subtitle = [], size = 300) {
+    this.hash = md5(`${templateName}:${subtitle}:${size}`)
+    this.size = size
     const subtitleHashPath = this.createSubtitle(templateName, subtitle)
     this.createGif(templateName, subtitleHashPath);
   }
@@ -25,32 +26,36 @@ class Gif {
       for (let i = 0; i < dialogueLength; i++) {
         subtitleText = subtitleText.replace(`<%= sentences[${i}] %>`, subtitle[i] || '')
       }
-      createFolder(path.join(__dirname,subtitleHashPath));
-      fs.writeFileSync(path.join(__dirname,subtitleHashPath), subtitleText)
+      createFolder(path.join(__dirname, subtitleHashPath));
+      fs.writeFileSync(path.join(__dirname, subtitleHashPath), subtitleText)
     }
     return subtitleHashPath
   }
 
   createGif(templateName, subtitleHashPath) {
-    const { hash } = this
+    const { hash, size } = this
     const gifPath = path.join(__dirname, `../cache/${templateName}/${hash}.gif`)
     createFolder(gifPath);
     subtitleHashPath = subtitleHashPath.slice(1)
 
     // 此处subtitleHashPath写绝对地址会报错，相对地址又是从根目录算起，奇怪
     ffmpeg(path.join(__dirname, `../template/${templateName}/template.mp4`))
-    .inputFPS(10)  
-    .videoFilters({
+      .videoFilters([{
         filter: 'subtitles',
         options: subtitleHashPath
-      }, )
-      .fps(8)
+      }])
+      .size(`${size}x?`)
       .save(gifPath)
-      imagemin([gifPath], `../cache/${templateName}/`, {use: [imageminGifsicle({
+
+    imagemin([gifPath], `../cache/${templateName}/`, {
+      use: [imageminGifsicle({
         optimizationLevel: 3,
         colors: 64
-      })]})
-    }
+      })]
+    })
+  }
 }
+
+new Gif('sorry', [1, 3, 4], 300)
 
 module.exports = Gif
