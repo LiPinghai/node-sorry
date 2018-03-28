@@ -25,7 +25,7 @@ const handleError = async(ctx, next) => {
       };
     } else {
       ctx.response.type = 'html'
-      ctx.response.body = fs.readFileSync('./404.html');
+      ctx.response.body = fs.readFileSync('dist/404.html');
     }
   }
 

@@ -37,7 +37,7 @@ function submit(templateName) {
                 result.innerHTML = "<p>请求出错！😵</p>";
             } else {
                 const response = JSON.parse(this.response)
-                result.innerHTML = `<a href="/apis/${templateName}/${response.data}" target="_blank">下载gif</a>`;
+                result.innerHTML = `<a href="/apis/${templateName}/${response.data}" target="_blank">点击下载</a>`;
             }
             submit_btn.innerHTML = "生成";
             submit_btn.disabled = false;

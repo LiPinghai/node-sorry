@@ -14,6 +14,8 @@
     "@ffmpeg-installer/ffmpeg": "^1.0.13",
     "ejs": "^2.5.8",
     "fluent-ffmpeg": "^2.1.2",
+    "imagemin": "^5.3.1",
+    "imagemin-gifsicle": "^5.2.0",
     "koa": "^2.5.0",
     "koa-body": "^2.5.0",
     "koa-static": "^4.0.2",
