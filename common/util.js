@@ -22,4 +22,17 @@ const countSubstring = (str, substring) => {
   }
 }
 
-module.exports = { createFolder, countSubstring }
+// 同步遍历
+const travel = (dir, callback) => {
+  fs.readdirSync(dir).forEach(function (file) {
+    var pathname = path.join(dir, file);
+ 
+    if (fs.statSync(pathname).isDirectory()) {
+      travel(pathname, callback);
+    } else {
+      callback(pathname);
+    }
+  });
+}
+
+module.exports = { createFolder, countSubstring, travel}

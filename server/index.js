@@ -25,7 +25,7 @@ const handleError = async(ctx, next) => {
       };
     } else {
       ctx.response.type = 'html'
-      ctx.response.body = fs.readFileSync('./server/404.html');
+      ctx.response.body = fs.readFileSync('./404.html');
     }
   }
 
@@ -34,7 +34,6 @@ app.use(handleError);
 
 // 页面服务
 app.use(static('./dist'));
-app.use(static('./'));
 // api服务
 app.use(async ctx => {
   const { request, response, method } = ctx
@@ -54,10 +53,11 @@ app.use(async ctx => {
 
 const postGif = (ctx) => {
   const { request, response, method } = ctx
-  const { body } = request
+  let { body } = request
   const paths = request.path.split('/')
   const templateName = paths[2]
-  const subtitle = JSON.parse(body.subtitle)
+  body = JSON.parse(body)
+  const subtitle = body.subtitle
 
   if (!templateName) {
     ctx.throw({ message: 'templateName required', status: 404 })
@@ -86,7 +86,7 @@ const getGif = (ctx) => {
   if (!id) {
     ctx.throw({ message: 'id required', status: 404 })
   }
-  const gifPath = `../output/${templateName}/${id}.gif`
+  const gifPath = `./cache/${templateName}/${id}.gif`
 
   if (!fs.existsSync(gifPath)) {
     ctx.throw({ message: `id:${id} not exist`, status: 404 });
@@ -96,7 +96,5 @@ const getGif = (ctx) => {
   }
 
 }
-
-
 
 app.listen(80);
