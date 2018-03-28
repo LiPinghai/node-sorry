@@ -33,7 +33,9 @@ const handleError = async(ctx, next) => {
 app.use(handleError);
 
 // 页面服务
-app.use(static('./dist'));
+app.use(static('./dist', {
+  maxage: 20 * 60 * 1000
+}));
 // api服务
 app.use(async ctx => {
   const { request, response, method } = ctx
