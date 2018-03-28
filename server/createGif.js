@@ -39,18 +39,20 @@ class Gif {
 
     // 此处subtitleHashPath写绝对地址会报错，相对地址又是从根目录算起，奇怪
     ffmpeg(path.join(__dirname, `../template/${templateName}/template.mp4`))
-    .inputFPS(10)  
-    .videoFilters({
+      .inputFPS(8)
+      .videoFilters({
         filter: 'subtitles',
         options: subtitleHashPath
       }, )
       .fps(8)
       .save(gifPath)
-      imagemin([gifPath], `../cache/${templateName}/`, {use: [imageminGifsicle({
+    imagemin([gifPath], `../cache/${templateName}/`, {
+      use: [imageminGifsicle({
         optimizationLevel: 3,
         colors: 64
-      })]})
-    }
+      })]
+    })
+  }
 }
 
 module.exports = Gif
