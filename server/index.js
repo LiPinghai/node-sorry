@@ -9,23 +9,23 @@ const path = require('path')
 const app = new Koa();
 app.use(koaBody());
 // 捕捉错误
-const handleError = async(ctx, next) => {
+const handleError = async(ctx, next)=> {
   try {
     await next();
-  } catch (e) {
-    const status = e.status || 404
-    const message = e.message || 'unknown error'
+  } catch(e) {
+    const status =  e.status || 404
+    const message =  e.message || 'unknown error'
     const paths = ctx.request.path.split('/')
 
-    if (paths[1] === 'apis') {
+    if (paths[1] === 'apis' ) {
       ctx.response.status = status;
       ctx.response.body = {
         status: status,
         message: message
       };
-    } else {
+    }else{
       ctx.response.type = 'html'
-      ctx.response.body = fs.readFileSync('dist/404.html');
+      ctx.response.body = fs.readFileSync('./server/404.html');
     }
   }
 
@@ -40,10 +40,10 @@ app.use(async ctx => {
   const { body } = request
   const paths = request.path.split('/')
 
-  if (paths[1] === 'apis') {
-    if (method === 'POST') {
+  if (paths[1] === 'apis' ) {
+    if( method === 'POST'){
       postGif(ctx)
-    } else if (method === 'GET') {
+    }else if(method === 'GET'){
       getGif(ctx)
     }
   } else {
@@ -53,11 +53,10 @@ app.use(async ctx => {
 
 const postGif = (ctx) => {
   const { request, response, method } = ctx
-  let { body } = request
+  const { body } = request
   const paths = request.path.split('/')
   const templateName = paths[2]
-  body = JSON.parse(body)
-  const subtitle = body.subtitle
+  const subtitle = JSON.parse(body.subtitle)
 
   if (!templateName) {
     ctx.throw({ message: 'templateName required', status: 404 })
@@ -86,15 +85,18 @@ const getGif = (ctx) => {
   if (!id) {
     ctx.throw({ message: 'id required', status: 404 })
   }
-  const gifPath = `./cache/${templateName}/${id}.gif`
+  const gifPath = `../output/${templateName}/${id}.gif`
 
   if (!fs.existsSync(gifPath)) {
     ctx.throw({ message: `id:${id} not exist`, status: 404 });
   } else {
     ctx.type = 'gif';
+    // ctx.set('Content-Type', 'image/gif')
     ctx.body = fs.createReadStream(gifPath)
   }
 
 }
+
+
 
 app.listen(80);
