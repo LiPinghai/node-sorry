@@ -7,18 +7,14 @@
     <title>Sorry! 在线生成(node版)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/w3.css" />
+    <%- statScript %>
+
     <!-- your code -->
 </head>
 
 <body>
     <!-- Sidebar -->
-    <div id="sidebar" class="w3-sidebar w3-bar-block w3-border-right" style="display:none">
-        <button id="sidebar_close" class="w3-bar-item w3-large">&times;</button>
-        <a href="/" class="w3-bar-item w3-button">首页</a>
-        <% templates.forEach(template=>{ %>
-         <a href="/gif/<%= template.name %>.html" class="w3-bar-item w3-button"><%= template.title %></a>
-        <% }) %>
-    </div>
+    <%- include('./sidebar', {data: templates}) %>
 
     <!-- Show Button -->
     <div class="w3-center">

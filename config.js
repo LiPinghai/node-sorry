@@ -11,5 +11,14 @@ module.exports = {
       desc: '我王境泽就是饿死,也不吃你们一点东西!',
       defaultDialogue: ['我王境泽就算饿死', '死外边 从这里跳下去', '也不会吃你们一点东西', '真香']
     }
-  ]
+  ],
+  statScript: `<script>
+                var _hmt = _hmt || [];
+                (function() {
+                  var hm = document.createElement("script");
+                  hm.src = "https://hm.baidu.com/hm.js?81512701524685db982762edff332855";
+                  var s = document.getElementsByTagName("script")[0]; 
+                  s.parentNode.insertBefore(hm, s);
+                })();
+              </script>`
 }

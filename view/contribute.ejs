@@ -7,11 +7,6 @@
   <title>Sorry! 在线生成(node版)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/w3.css" />
-  <style>
-    a{
-      text-decoration: none;
-    }
-  </style>
   <%- statScript %>
   <!-- your code -->
 </head>
@@ -34,19 +29,19 @@
 
   <!-- Main Frame -->
   <div class="w3-container w3-display-container w3-half">
-    <div class="w3-display-container">
-    <% templates.forEach(template=>{ %>
-      <a href="/gif/<%= template.name %>.html">
-        <div style="width:47%; margin:1%" class="w3-display-container w3-show-inline-block">
-          <img width="100%" src="../template/<%= template.name %>/template.png" alt="">
-          <h4 class="w3-center"><%= template.title %></h4>
-        </div>
-      </a>
-    <% }) %>
+    <div class="w3-display-container w3-padding ">
+      <p>
+        欢迎创意满满的你投稿，充实我们的模板库，给大家带来更多乐趣~
+      </p>
+      <p>
+        请将mp4文件和ass文件(参考右上方链接github仓库里的制作说明)压缩发送到twopoles@163.com
+      </p>
+      <p>
+        另外，喜欢本项目的朋友也欢迎点个star,感谢！
+      </p>
     </div>
   </div>
 
-  <script src="/cookies.js"></script>
   <script src="/main.js"></script>
 </body>
 

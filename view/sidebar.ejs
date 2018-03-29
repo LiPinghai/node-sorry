@@ -1,0 +1,8 @@
+<div id="sidebar" class="w3-sidebar w3-bar-block w3-border-right" style="display:none">
+    <button id="sidebar_close" class="w3-bar-item w3-large">&times;</button>
+    <a href="/" class="w3-bar-item w3-button">首页</a>
+    <% templates.forEach(template=>{ %>
+     <a href="/gif/<%= template.name %>.html" class="w3-bar-item w3-button"><%= template.title %></a>
+    <% }) %>
+    <a href="/contribute.html" class="w3-bar-item w3-button">我要投稿</a>
+  </div>

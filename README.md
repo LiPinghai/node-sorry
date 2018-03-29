@@ -3,9 +3,18 @@ node-sorry
 
 最近很火的sorry在线制作gif的node版本，创意来自[Xuty的ruby原版](https://github.com/xtyxtyx/sorry)，本文档亦有参考原文档。
 
+[线上演示地址](http://gif.lipinghai.cn/index.html)
+
 有问题欢迎提issue，喜欢项目的请star,谢谢！
 
 ![图片](http://imgsrc.baidu.com/forum/pic/item/a98c4bc6a7efce1b86b10ccca351f3deb58f6585.gif)
+
+## 项目说明
+
+服务端采用 koa + fluent-ffmpeg,生成字幕和gif存在cache目录
+api用RESTful规范
+页面采用ejs渲染，构建脚本build.js,生成页面和资源在dist目录
+项目配置在config.js中(部署请删掉或替换统计代码)
 
 ## 源码结构
 
