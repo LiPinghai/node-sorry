@@ -35,15 +35,16 @@
     <!-- Main Frame -->
     <div class="w3-container w3-display-container w3-half">
         <div class="w3-container">
-            <img src="<%= template.img %>" alt="题图" style="width:100%">
+            <img src="/template/<%= template.name %>/sample.gif" style="width:100%">
         </div>
         <div class="w3-container">
         <% template.defaultDialogue.forEach(function(dialogue, index){ %>
           <%- include('./dialogue', {dialogue, index: index+1}) %>
         <% }); %>
-        <div id="result"></div>
+        
         <p>
           <button id="submit_btn" onclick="submit('<%= template.name %>')" class="w3-btn w3-blue">生成</button>
+          <span id="result" class="w3-margin-left"></span>
         </p>
         </div>
     </div>

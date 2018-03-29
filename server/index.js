@@ -56,20 +56,27 @@ app.use(async ctx => {
 const postGif = (ctx) => {
   const { request, response, method } = ctx
   let { body } = request
+  let userAgent = request.header['user-agent']
   const paths = request.path.split('/')
   const templateName = paths[2]
   body = JSON.parse(body)
   const subtitle = body.subtitle
-
+  let size = 300
+  
   if (!templateName) {
     ctx.throw({ message: 'templateName required', status: 404 })
   }
-
+  
   if (!subtitle) {
     ctx.throw({ message: 'subtitle required', status: 404 })
   }
-
-  const gif = new Gif(templateName, subtitle)
+  
+  const isInWeChat = /(micromessenger)/.test(userAgent.toLocaleLowerCase());
+  if(isInWeChat){
+    size = 236
+  }
+  
+  const gif = new Gif(templateName, subtitle, size)
   ctx.body = {
     status: 200,
     data: gif.hash

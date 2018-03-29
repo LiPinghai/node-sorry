@@ -3,22 +3,22 @@ node-sorry
 
 最近很火的sorry在线制作gif的node版本，创意来自[Xuty的ruby原版](https://github.com/xtyxtyx/sorry)，本文档亦有参考原文档。
 
-![图片](http://tieba.baidu.com/photo/p?kw=%E6%8A%97%E5%8E%8B&flux=1&tid=5609207987&pic_id=a98c4bc6a7efce1b86b10ccca351f3deb58f6585&pn=1&fp=2&see_lz=1&red_tag=c3045573210)
+有问题欢迎提issue，喜欢项目的请star,谢谢！
+
+![图片](http://imgsrc.baidu.com/forum/pic/item/a98c4bc6a7efce1b86b10ccca351f3deb58f6585.gif)
 
 ## 源码结构
 
 ```
 ├── package
 ├── package.lock
-├── public                  # 静态文件目录
-├── view                    # 页面源码
-├── template                # 模板目录
-├── build.js                # 页面构建脚本
-├── dist                    # 打包目录
-├── README.md
-├── config.js               # 配置
-├── server                  # node源码
 ├── common                  # 工具类
+├── server                  # node源码
+├── view                    # 页面源码
+├── template                # gif模板
+├── config.js               # 配置
+├── build.js                # 页面构建脚本
+├── README.md
 └── cache                   # gif和字幕缓存
 ```
 
@@ -64,7 +64,7 @@ GET {host}/api/{template_name}/{gif_hash}
 ```
 npm i
 ```
-`@ffmpeg-installer/ffmpeg`大概率装不上，多装几次
+`@ffmpeg-installer/ffmpeg`有可能装不上，多装`npm i`几次
 
 ### 构建页面
 ```
@@ -75,7 +75,7 @@ npm run build
 
 本地开发用`npm run server`
 
-线上用`pm2`运行`server/index.js`即可
+线上部署用推荐使用`pm2`管理,先安装`npm i pm2 -g`,再`pm2 start server/index.js`启动项目即可
 
 ## 制作字幕模板template.ass
 

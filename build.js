@@ -5,11 +5,13 @@ const { createFolder, travel } = require('./common/util.js')
 const config = require('./config.js')
 const {templates} = config
 
+// 渲染首页
 ejs.renderFile('./view/index.ejs', config, {}, function(err, str){
   createFolder('./dist/index.html')
   fs.writeFileSync('./dist/index.html',str)
 });
 
+// 渲染gif制作页
 templates.forEach((template, index)=>{
   const htmlPath = `./dist/gif/${template.name}.html`
   createFolder(htmlPath)
@@ -19,16 +21,19 @@ templates.forEach((template, index)=>{
   });
 })
 
-fs.copyFileSync('./view/404.html', './dist/404.html',)
-fs.copyFileSync('./view/main.js', './dist/main.js',)
-fs.copyFileSync('./view/cookies.js', './dist/cookies.js',)
-fs.copyFileSync('./view/w3.css', './dist/w3.css',)
-fs.copyFileSync('./view/robots.txt', './dist/robots.txt',)
 
-travel('./template', pathname=>{
+// 复制其他资源和模板
+travel('./view', pathname => {
+  if(pathname.indexOf('.ejs') < 0){
+    const distPath = `./dist/${pathname.split('view')[1]}`
+    createFolder(distPath)
+    fs.copyFileSync(pathname, distPath,)
+  }
+})
+
+travel('./template', pathname => {
   const distPath = `./dist/${pathname}`
   createFolder(distPath)
   fs.copyFileSync(pathname, distPath,)
-
 })
 
