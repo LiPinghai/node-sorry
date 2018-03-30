@@ -10,6 +10,12 @@ module.exports = {
       title: '王境泽',
       desc: '我王境泽就是饿死,也不吃你们一点东西!',
       defaultDialogue: ['我王境泽就算饿死', '死外边 从这里跳下去', '也不会吃你们一点东西', '真香']
+    },
+    {
+      name: 'guevara',
+      title: '窃·格瓦拉',
+      desc: '打工是不可能打工的，这辈子不可能打工的!',
+      defaultDialogue: ['打工是不可能打工','这辈子不可能打工的','生意又不会做','就是靠这种东西','才可以维持生活这样子']
     }
   ],
   statScript: `<script>

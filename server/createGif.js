@@ -56,6 +56,5 @@ class Gif {
   }
 }
 
-new Gif('sorry', [1, 3, 4], 300)
 
 module.exports = Gif
