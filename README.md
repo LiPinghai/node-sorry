@@ -11,10 +11,10 @@ node-sorry
 
 ## 项目说明
 
-服务端采用 koa + fluent-ffmpeg,生成字幕和gif存在cache目录
-api用RESTful规范
-页面采用ejs渲染，构建脚本build.js,生成页面和资源在dist目录
-项目配置在config.js中(部署请删掉或替换统计代码)
+* 服务端采用 koa + fluent-ffmpeg,生成字幕和gif存在cache目录
+* api用RESTful规范
+* 页面采用ejs渲染，构建脚本build.js,生成页面和资源在dist目录
+* 项目配置在config.js中(部署请删掉或替换统计代码)
 
 ## 源码结构
 
@@ -33,11 +33,12 @@ api用RESTful规范
 
 ## 其他版本
 
-- [ruby原版](https://github.com/xtyxtyx/sorry), @Xuty编写
+- [ruby原版](https://github.com/xtyxtyx/sorry)@Xuty编写
 - [python版](https://github.com/East196/sorrypy)，由@East196编写
 - [java版](https://github.com/li24361/sorryJava)，由@li24361编写
 - [C# ASP.NET版](https://github.com/shuangrain/SorryNet)，由@shuangrain编写
 - [微信小程序](https://github.com/CoXier/iemoji-wechat)，由@CoXier编写
+- [node+Express版](https://github.com/q809198545/node-sorry)，由@q809198545编写
 
 ## API
 
@@ -65,6 +66,7 @@ GET {host}/api/{template_name}/{gif_hash}
 ```
 - sorry
 - wangjingze
+- guevara
 ```
 
 ## 部署指南
