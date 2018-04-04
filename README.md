@@ -3,7 +3,7 @@ node-sorry
 
 最近很火的sorry在线制作gif的node版本，创意来自[Xuty的ruby原版](https://github.com/xtyxtyx/sorry)，本文档亦有参考原文档。
 
-[线上演示地址](http://gif.lipinghai.cn/index.html)
+[线上演示地址](http://gif.lipinghai.cn/index.html?from=github)
 
 有问题欢迎提issue，喜欢项目的请star,谢谢！
 
